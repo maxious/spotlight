@@ -9,13 +9,15 @@ define([
     clientRenderOnInit: true,
 
     initialize: function() {
-      this.listenTo(this.model, 'change:filter change:departmentFilter', this.updateCollectionFilter);
+      this.listenTo(this.model, 'change:filter change:departmentFilter change:serviceFilter',
+        this.updateCollectionFilter);
     },
 
     updateCollectionFilter: function () {
       var filteredList = this.unfilteredCollection.filterServices({
         text: this.model.get('filter'),
-        department: this.model.get('departmentFilter')
+        department: this.model.get('departmentFilter'),
+        service: this.model.get('serviceFilter')
       });
 
       this.collection.reset(filteredList);

@@ -14,6 +14,7 @@ function (Modernizr, View, TableView, SummaryFigureView, ServicesKPIS, $) {
       'search #filter': 'filter',
       'submit #filter-wrapper': 'filterFormSubmit',
       'change #department': 'filter',
+      'change #service': 'filter',
       'click .filter-remove': 'removeFilter'
     }),
 
@@ -47,10 +48,14 @@ function (Modernizr, View, TableView, SummaryFigureView, ServicesKPIS, $) {
 
     filter: function () {
       var filterVal = this.$('#filter').val(),
-        deptFilterVal = this.$('#department').val();
+        deptFilterVal = this.$('#department').val(),
+        serviceFilterVal = this.$('#service').val();
 
-      this.model.set('filter', filterVal);
-      this.model.set('departmentFilter', deptFilterVal);
+      this.model.set({
+        filter: filterVal,
+        departmentFilter: deptFilterVal,
+        serviceFilter: serviceFilterVal
+      });
 
       if (Modernizr.history) {
         var params = $.deparam(window.location.search.substr(1));
@@ -64,6 +69,11 @@ function (Modernizr, View, TableView, SummaryFigureView, ServicesKPIS, $) {
           params.department = deptFilterVal;
         } else {
           delete params.department;
+        }
+        if (serviceFilterVal) {
+          params.service = serviceFilterVal;
+        } else {
+          delete params.service;
         }
 
         params = $.param(params);
