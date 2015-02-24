@@ -84,18 +84,26 @@ describe('Services Controller', function () {
     }));
   });
 
-  it('passes query params filter to model if defined', function () {
+  it('passes a keyword filter to the model if defined in the querystring', function () {
     controller('services', _.extend({ query: { filter: 'foo' } }, fake_app), res);
     client_instance.trigger('sync');
     expect(Backbone.Model.prototype.initialize).toHaveBeenCalledWith(jasmine.objectContaining({
       filter: 'foo'}));
   });
 
-  it('passes department filter to model if set', function () {
+  it('passes a department filter to the model if set in the querystring', function () {
     controller('services', _.extend({ query: { department: 'home-office' } }, fake_app), res);
     client_instance.trigger('sync');
     expect(Backbone.Model.prototype.initialize).toHaveBeenCalledWith(jasmine.objectContaining({
       departmentFilter: 'home-office'
+    }));
+  });
+
+  it('passes a services filter to the model if set in the querystring', function () {
+    controller('services', _.extend({ query: { service: 'carers-allowance' } }, fake_app), res);
+    client_instance.trigger('sync');
+    expect(Backbone.Model.prototype.initialize).toHaveBeenCalledWith(jasmine.objectContaining({
+      serviceFilter: 'carers-allowance'
     }));
   });
 
