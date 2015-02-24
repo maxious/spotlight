@@ -29,7 +29,7 @@ module.exports = {
       .end();
   },
 
-  'Dropdown filter': function (client) {
+  'Department filter': function (client) {
     client
       .assert.containsText(this.selectors.filterTable, 'Vehicle tax renewals')
       .click('#department option[value="co"]')
@@ -39,7 +39,17 @@ module.exports = {
       .end();
   },
 
-  'Text and Dropdown filter': function (client) {
+  'Services filter': function (client) {
+    client
+      .assert.containsText(this.selectors.filterTable, 'Vehicle tax renewals')
+      .click('#service option[value="my-service"]')
+      .waitForElementVisible(this.selectors.filterTable, 1000)
+      .assert.doesNotContainText(this.selectors.filterTable, 'Vehicle tax renewals')
+      .assert.containsText(this.selectors.filterTable, 'My transaction')
+      .end();
+  },
+
+  'Text, Services and Department filter': function (client) {
     client
       .assert.containsText(this.selectors.filterTable, 'Vehicle tax renewals')
       .click('#department option[value="co"]')
@@ -50,6 +60,10 @@ module.exports = {
       .waitForElementVisible(this.selectors.filterTable, 1000)
       .assert.doesNotContainText(this.selectors.filterTable, 'Digital Services Store')
       .assert.containsText(this.selectors.filterTable, 'Digital Marketplace')
+      .click('#service option[value="my-service"]')
+      .waitForElementVisible(this.selectors.filterTable, 1000)
+      .assert.containsText(this.selectors.filterTable, 'My transaction')
+      .assert.containsText(this.selectors.filterTable, 'Second transaction')
       .end();
   },
 
