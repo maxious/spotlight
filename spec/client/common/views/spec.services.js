@@ -9,7 +9,7 @@ define([
 
     beforeEach(function () {
       spyOn(window.history, 'replaceState');
-      $el = $('<div><input id="filter"/><select id="department"><option value="">All</option><option value="home-office">Home Office</option></select><select id="service"><option value="">All</option><option value="service1">Service 1</option></select></div>');
+      $el = $('<div><input id="filter"/><select id="department"><option value="">All</option><option value="home-office">Home Office</option></select><select id="service-group"><option value="">All</option><option value="service1">Service 1</option></select></div>');
     });
 
     it('uses the history API to update the URL after filtering', function () {
@@ -26,9 +26,9 @@ define([
       $el.find('#filter').val('');
       view.filter();
       expect(window.history.replaceState).toHaveBeenCalledWith(null, null, '?department=home-office');
-      $el.find('#service').val('service1');
+      $el.find('#service-group').val('service1');
       view.filter();
-      expect(window.history.replaceState).toHaveBeenCalledWith(null, null, '?department=home-office&service=service1');
+      expect(window.history.replaceState).toHaveBeenCalledWith(null, null, '?department=home-office&servicegroup=service1');
     });
 
   });
